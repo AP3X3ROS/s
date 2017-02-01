@@ -1,0 +1,113 @@
+
+
+    public function addExp($name, $exp) {
+        $cc = $this->getPlayerConfigCache($name);
+        $xp = $cc->exp;
+
+        if ($cc->level <= 0 or $cc->level >= 200) {
+            return;
+        }
+        if ($xp + $exp >= $this->getNextLevelExp($cc->level)) {
+            $xp = $xp + $exp - $this->getNextLevelExp($cc->level);
+            $cc->exp = $xp;
+            $this->LevelUp($name);
+        } else {
+            $cc->exp = $xp + $exp;
+        }
+    }
+	 public function LevelUp($name) {
+        $cc = $this->getPlayerConfigCache($name);
+        $cc->level++;
+        $player = $this->getServer()->getPlayerExact($name);
+        if ($player != null) {
+            if ($cc->level / 10 ==1) {
+                $player->getInventory()->addItem(Item::get(ItemBlock::DIAMOND, 0, 0));
+            }
+			if ($cc->level / 10 == 1) {
+                $jiangli .= ",超级效果";
+                $player->addEffect(Effect::getEffect(Effect::HEALTH_BOOST)->setAmplifier(0)->setDuration(300 * 20));
+				$player->addEffect(Effect::getEffect(Effect::SWIFTNESS)->setAmplifier(1)->setDuration(300 * 20));
+            }
+			if($cc->level / 50 == 1){
+                $player->addEffect(Effect::getEffect(Effect::HEALTH_BOOST)->setAmplifier(0)->setDuration(300 * 20));
+				$player->addEffect(Effect::getEffect(Effect::SWIFTNESS)->setAmplifier(1)->setDuration(300 * 20));
+			}
+			if($cc->level / 100 == 1){
+                $player->addEffect(Effect::getEffect(Effect::HEALTH_BOOST)->setAmplifier(0)->setDuration(300 * 20));
+				$player->addEffect(Effect::getEffect(Effect::SWIFTNESS)->setAmplifier(1)->setDuration(300 * 20));
+				$player->addEffect(Effect::getEffect(Effect::INVISIBILITY)->setAmplifier(1)->setDuration(100 * 20));
+			}
+			if($cc->level / 150 == 1){
+                $player->addEffect(Effect::getEffect(Effect::HEALTH_BOOST)->setAmplifier(0)->setDuration(300 * 20));
+				$player->addEffect(Effect::getEffect(Effect::SWIFTNESS)->setAmplifier(1)->setDuration(300 * 20));
+				$player->addEffect(Effect::getEffect(Effect::INVISIBILITY)->setAmplifier(1)->setDuration(100 * 20));
+			}
+			if($cc->level / 200 == 1){
+            $player->removeAllEffects();
+            $player->addEffect(Effect::getEffect(Effect::HEALTH_BOOST)->setAmplifier(0)->setDuration(3 * 20));
+            $player->addEffect(Effect::getEffect(Effect::INVISIBILITY)->setAmplifier(0)->setDuration(3 * 20));
+        }
+		 public function getKnightString($Level) {
+        if ($Level > 0 and $Level < 11) {
+            return TextFormat::GREEN . "VERDUN";
+        }
+        if ($Level > 10 and $Level < 21) {
+            return TextFormat::GREEN . "MIMIC";
+        }
+        if ($Level > 20 and $Level < 31) {
+            return TextFormat::GREEN . "NOOB";
+        }
+        if ($Level > 30 and $Level < 41) {
+            return TextFormat::AQUA . "ALPHA";
+        }
+        if ($Level > 40 and $Level < 51) {
+            return TextFormat::AQUA . "DRAGON";
+        }
+        if ($Level > 50 and $Level < 61) {
+            return TextFormat::AQUA . "THUNDERKIN";
+        }
+        if ($Level > 60 and $Level < 71) {
+            return TextFormat::LIGHT_PURPLE . "ATRIX";
+        }
+        if ($Level > 70 and $Level < 81) {
+            return TextFormat::LIGHT_PURPLE . "LYNX";
+        }
+        if ($Level > 80 and $Level < 91) {
+            return TextFormat::DARK_PURPLE . "DEMONIC";
+        }
+        if ($Level > 90 and $Level < 101) {
+            return TextFormat::RED . "BIFROST";
+        }
+		if ($Level > 100 and $Level < 111) {
+            return TextFormat::RED . "VANGAURD";
+        }
+		if ($Level > 110 and $Level < 121) {
+            return TextFormat::RED . "WARDON";
+        }
+		if ($Level > 120 and $Level < 131) {
+            return TextFormat::RED . "SENTINAL";
+        }
+		if ($Level > 130 and $Level < 141) {
+            return TextFormat::RED . "NEMYSIS";
+        }
+		if ($Level > 140 and $Level < 151) {
+            return TextFormat::RED . "ATHER";
+        }
+		if ($Level > 150 and $Level < 161) {
+            return TextFormat::RED . "BLAZE";
+        }
+		if ($Level > 160 and $Level < 171) {
+            return TextFormat::RED . "BLIZZARD";
+        }
+		if ($Level > 170 and $Level < 181) {
+            return TextFormat::RED . "IMMORTAL";
+        }
+		if ($Level > 180 and $Level < 191) {
+            return TextFormat::RED . "GOD-LORD";
+        }
+		if ($Level > 190 and $Level < 201) {
+            return TextFormat::RED . "GOD-EATER";
+        }
+        return TextFormat::RED . "MAX-LVL";
+    }
+}
